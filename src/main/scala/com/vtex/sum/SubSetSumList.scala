@@ -2,13 +2,12 @@ package com.vtex.sum
 
 import scala.annotation.tailrec
 
-object SubSetSummer {
+class SubSetSumList(numbers: List[Int]) {
 
-  def sums(numbers: List[Int], target: Int): List[List[Int]] = {
+  lazy val sorted = numbers.sorted
+  lazy val size = sorted.size
 
-    val sorted = numbers.sorted
-    val size = sorted.size
-
+  def subSets(targetSum: Int): List[List[Int]] = {
     @tailrec
     def bT(stack: List[(List[Int], List[Int])], results: List[List[Int]] = List.empty): List[List[Int]] = {
 
@@ -23,9 +22,9 @@ object SubSetSummer {
         val currentSum = current.sum
 
         currentSum match {
-          case sum if sum > target => bT(stack.tail, results)
-          case sum if sum == target => bT(stack.tail, results :+ current)
-          case sum if sum < target => bT(pushCombinations(stack.tail, current, pool), results)
+          case sum if sum > targetSum => bT(stack.tail, results)
+          case sum if sum == targetSum => bT(stack.tail, results :+ current)
+          case sum if sum < targetSum => bT(pushCombinations(stack.tail, current, pool), results)
         }
       } else {
         results
@@ -37,5 +36,12 @@ object SubSetSummer {
       (List(n), sorted.slice(i+1, size))
     }.toList)
   }
+
+}
+
+
+object SubSetSumList {
+
+  implicit def listToSubSetSumList(l: List[Int]): SubSetSumList = new SubSetSumList(l)
 
 }

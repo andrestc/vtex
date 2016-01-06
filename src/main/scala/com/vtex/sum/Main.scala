@@ -1,6 +1,7 @@
 package com.vtex.sum
 
 import scala.io.StdIn._
+import SubSetSumList._
 
 object Main extends App {
 
@@ -12,6 +13,6 @@ object Main extends App {
 
   val numbers = readLine().split(" ").map(Integer.parseInt).toList
 
-  println(SubSetSummer.sums(numbers, target).map(_.mkString("(", ",", ")")).mkString("\n"))
+  println(numbers.subSets(target).map(_.mkString("(", ",", ")")).mkString("\n"))
 
 }
