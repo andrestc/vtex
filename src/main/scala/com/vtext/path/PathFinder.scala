@@ -1,7 +1,6 @@
 package com.vtext.path
 
 import scala.annotation.tailrec
-import scala.collection.{mutable => m}
 
 case class Graph[T](paths: Map[T, List[T]]) {
   def neighbours(node: T) = paths.getOrElse(node, List.empty)
@@ -10,7 +9,6 @@ case class Graph[T](paths: Map[T, List[T]]) {
 object PathFinder {
 
   def findPath[T](graph: Graph[T], start: T, end: T): Option[List[T]] = {
-
 
     @tailrec
     def inner(stack: List[(T, Int)], path: List[(T, Int)], visited: T*): Option[List[T]] = {
