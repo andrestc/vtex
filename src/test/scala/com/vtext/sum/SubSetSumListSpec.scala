@@ -3,7 +3,7 @@ package com.vtext.sum
 import com.vtex.sum.SubSetSumList._
 import org.scalatest.{Matchers, FlatSpec}
 
-class SubSetSummerSpec extends FlatSpec with Matchers {
+class SubSetSumListSpec extends FlatSpec with Matchers {
 
   it should "find all subsets with sum" in {
     List(1, 2, 3, 4, 6).subSets(6) should contain theSameElementsAs List(
