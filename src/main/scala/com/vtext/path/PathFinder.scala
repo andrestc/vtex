@@ -24,8 +24,8 @@ object PathFinder {
         case (current, depth) :: xs =>
           val updatedPath = rewindPath(current, depth)
           current match {
-            case c if c == end => Option(updatedPath.map(_._1).reverse)
-            case _ => inner(pushUnvisited(current, depth+1), updatedPath, visited :+ current:_*)
+            case c if c == end  => Option(updatedPath.map(_._1).reverse)
+            case _              => inner(pushUnvisited(current, depth+1), updatedPath, visited :+ current:_*)
           }
         case Nil => Option.empty
       }
