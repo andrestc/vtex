@@ -12,26 +12,27 @@ object PathFinder {
   def findPath[T](graph: Graph[T], start: T, end: T): Option[List[T]] = {
 
     @tailrec
-    def inner(stack: m.Stack[(T, Int)], path: m.Stack[(T, Int)], visited: T*): Option[List[T]] = {
+    def inner(stack: List[(T, Int)], path: List[(T, Int)], visited: T*): Option[List[T]] = {
       if(stack.nonEmpty) {
-        val (current, depth) = {
-          val (current, depth) = stack.pop
-          while (depth > 0 && path.head._2 >= depth) path.pop
-          path.push((current, depth))
-          (current, depth)
+        val (current, depth, newPath) = {
+          val (current, depth) = stack.head
+          val updatedPath = if(depth > 0) (current, depth) :: path.dropWhile(_._2 >= depth) else path
+          (current, depth, updatedPath)
         }
         if(!(current == end)){
-          graph.neighbours(current).filterNot(visited.contains).foreach(n => stack.push((n, depth+1)))
-          inner(stack, path, visited :+ current:_*)
+          val updatedStack = graph.neighbours(current).filterNot(visited.contains).foldLeft(stack.tail) { (s, n) =>
+            (n, depth+1) :: s
+          }
+          inner(updatedStack, newPath, visited :+ current:_*)
         } else {
-          Option(path.toList.map(_._1).reverse)
+          Option(newPath.map(_._1).reverse)
         }
       } else {
-        None
+        Option.empty
       }
     }
 
-    inner(m.Stack((start, 0)), m.Stack())
+    inner(List((start, 0)), List((start, 0)))
 
   }
 
