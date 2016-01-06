@@ -7,19 +7,16 @@ case class Graph[T](paths: Map[T, List[T]]) {
 object PathFinder {
 
   def findPath[T](graph: Graph[T], start: T, end: T): Option[List[T]] = {
-    def inner(curr: T, visited: List[T] = List.empty): List[T] = {
-      if(curr == end) visited :+ curr
+    def inner(current: T, visited: List[T] = List.empty): List[T] = {
+      if(current == end) visited :+ current
       else {
-        graph.neighbours(curr).filterNot(visited.contains) match {
-          case x :: xs => (x :: xs).flatMap(n => inner(n, visited :+ curr))
+        graph.neighbours(current).filterNot(visited.contains) match {
+          case x :: xs => (x :: xs).flatMap(n => inner(n, visited :+ current))
           case Nil => List.empty
         }
       }
     }
-    inner(start) match {
-      case x :: xs => Some(x :: xs)
-      case Nil => Option.empty
-    }
+    Option(inner(start)).filterNot(_.isEmpty)
   }
 
 }
