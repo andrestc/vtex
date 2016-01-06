@@ -1,6 +1,9 @@
-#### Documentação
+### Documentação
 
 Para rodar os testes, executar o comando: `sbt test`
+
+Para executar as Mains, `sbt run` e selecionar qual das duas deseja (path ou sum). As instruções para entrada dos dados
+serão exibidas na tela.
 
 ### Problemas
 
