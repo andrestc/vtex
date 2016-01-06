@@ -4,8 +4,8 @@ import org.scalatest.{Matchers, FlatSpec}
 
 class PathFinderSpec extends FlatSpec with Matchers {
 
-  val graph = Map(1 -> List(2, 3), 2 -> List(4), 3 -> List(5))
-  val cycledGraph = Map(1 -> List(2, 3), 2 -> List(3, 4), 4 -> List(5), 6 -> List(7))
+  val graph = Graph(Map(1 -> List(2, 3), 2 -> List(4), 3 -> List(5)))
+  val cycledGraph = Graph(Map(1 -> List(2, 3), 2 -> List(3, 4), 4 -> List(5), 6 -> List(7)))
 
   it should "find a path" in {
     PathFinder.findPath(graph, 1, 4).get should contain theSameElementsInOrderAs List(1, 2, 4)
@@ -30,4 +30,5 @@ class PathFinderSpec extends FlatSpec with Matchers {
   it should "handle cycles when there is no path" in {
     PathFinder.findPath(cycledGraph, 1, 6) should not be defined
   }
+
 }

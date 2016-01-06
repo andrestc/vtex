@@ -1,12 +1,16 @@
 package com.vtext.path
 
+case class Graph[T](paths: Map[T, List[T]]) {
+  def neighbours(node: T) = paths.getOrElse(node, List.empty)
+}
+
 object PathFinder {
 
-  def findPath(paths: Map[Int, List[Int]], start: Int, end: Int): Option[List[Int]] = {
-    def inner(curr: Int, visited: List[Int] = List.empty): List[Int] = {
+  def findPath[T](graph: Graph[T], start: T, end: T): Option[List[T]] = {
+    def inner(curr: T, visited: List[T] = List.empty): List[T] = {
       if(curr == end) visited :+ curr
       else {
-        paths.getOrElse(curr, List.empty).filterNot(visited.contains) match {
+        graph.neighbours(curr).filterNot(visited.contains) match {
           case x :: xs => (x :: xs).flatMap(n => inner(n, visited :+ curr))
           case Nil => List.empty
         }
