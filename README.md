@@ -5,6 +5,14 @@ Para rodar os testes, executar o comando: `sbt test`
 Para executar as Mains, `sbt run` e selecionar qual das duas deseja (path ou sum). As instruções para entrada dos dados
 serão exibidas na tela.
 
+### Observações
+
+- Ambos os problemas foram resolvidos com algoritmos recursivos: em 1, foi utilizado o algoritmo de backtracking 
+enquanto que em 2 foi implementada uma busca em profundidade.
+- Ambas as implementações utilizaram estruturas de dados imutáveis e fizeram uso de `tail recursion`.
+- `List` foi utilizado no lugar de uma `immutable.Stack` pois recomendação da própria 
+[documentação](http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.Stack).
+
 ### Problemas
 
 1. Escreva um programa que, dado uma lista de números e uma soma alvo, retorne todas as combinações de um ou mais itens da lista que a soma seja igual a soma alvo.
