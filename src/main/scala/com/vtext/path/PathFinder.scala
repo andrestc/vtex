@@ -20,16 +20,14 @@ object PathFinder {
         (current, depth) :: path.dropWhile(_._2 >= depth)
       } else path
 
-      if(stack.nonEmpty) {
-        val (current, depth) = stack.head
-        val updatedPath = rewindPath(current, depth)
-        if(!(current == end)){
-          inner(pushUnvisited(current, depth+1), updatedPath, visited :+ current:_*)
-        } else {
-          Option(updatedPath.map(_._1).reverse)
-        }
-      } else {
-        Option.empty
+      stack match {
+        case (current, depth) :: xs =>
+          val updatedPath = rewindPath(current, depth)
+          current match {
+            case c if c == end => Option(updatedPath.map(_._1).reverse)
+            case _ => inner(pushUnvisited(current, depth+1), updatedPath, visited :+ current:_*)
+          }
+        case Nil => Option.empty
       }
     }
 
